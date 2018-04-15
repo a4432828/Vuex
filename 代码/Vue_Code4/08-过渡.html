@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="box animated slideInLeft"></div> -->
+    <div id="app">
+        <input type="checkbox" v-model="flag">
+        <transition v-on:enter="myEnter" v-on:leave="myLeave">
+            <div class="box" v-if='flag'></div>
+        </transition>
+
+    </div>
+    <script src="vue.js"></script>
+    <script src="jquery-1.11.1.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                flag: true
+            },
+            methods: {
+                //第一个参数：动画的元素
+                //第二个参数：动画完成后执行指令的操作
+                myEnter(el, done) {
+                    //元素显示时回调的函数
+                    $(el).css({ //设置元素初始样式为0
+                        width: 0,
+                        height: 0
+                    });
+                    $(el).animate({
+                        width: 100,
+                        height: 100
+                    }, 1000, done);
+                },
+                myLeave(el, done) {
+                    //元素隐藏是回调的函数
+                    $(el).animate({
+                        width: 0,
+                        height: 0
+                    }, 1000, done);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

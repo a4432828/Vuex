@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- checkbox 如果没有设置value时，通过v-model绑定的变量的值默认为true（勾选）或false(去选) -->
+        <input type="checkbox" v-model="flag" />
+        <p>{{flag}}</p>
+
+        <hr/>
+        <p>
+            <!-- 一组checkbox要绑定同一个变量时，该变量应该为数组类型
+                同时要显示设置checkbox的value属性
+            -->
+            你的爱好
+            <input type="checkbox" v-model="fav" value="睡觉" />睡觉
+            <input type="checkbox" v-model="fav" value="吃饭" />吃饭
+            <input type="checkbox" v-model="fav" value="打豆豆" />打豆豆
+        </p>
+        <p>{{fav}}</p>
+        <hr/>
+        <input type="checkbox" v-model="name" v-bind:true-value="'同意'" :false-value="'反对'" />
+        <p>{{name}}</p>
+        <hr/>
+        <p>
+            你的性别
+            <input type="radio" v-model="sex" value="男" />男
+            <input type="radio" v-model="sex" value="女" />女
+        </p>
+        <p>{{sex}}</p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                flag: 'hello',
+                fav: [],
+                name: '',
+                sex: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

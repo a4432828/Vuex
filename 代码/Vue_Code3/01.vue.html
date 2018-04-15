@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //全局注册自定义指令
+        Vue.directive('drag', {})
+
+        //自定义指令：
+        new Vue({
+            el: '#app',
+            directives: {
+                'drag': {
+                    bind: function(el, binding) {
+
+                    },
+                    inserted: function() {
+
+                    },
+                    update() {
+
+                    }
+                }
+            },
+            computed: {
+                total: function() {
+                    return 10;
+                }
+            }
+        });
+        //计算属性 & 方法属性
+    </script>
+</body>
+
+</html>

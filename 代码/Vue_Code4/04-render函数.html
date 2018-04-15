@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- ref="name" 标志当前子组件-->
+        <my-component ref="myC"></my-component>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('myComponent', {
+            // template: '<div class="box" id="box"><h1>标题</h1><p>{{msg}}</p></div>',
+            render: function(createElement) {
+                //形参createElement：代表创建元素的函数对象
+                //第一个参数：待创建的元素类型
+                //第二个参数：设置待创建的元素属性
+                //第三个参数：待创建的元素内的子元素
+                return createElement('div', {
+                    'class': {
+                        box: true
+                    },
+                    attrs: {
+                        id: 'box'
+                    }
+                }, [createElement('h1', '标题'), createElement('p', this.msg)]);
+            },
+            data() {
+                return {
+                    msg: "hello"
+                }
+            }
+        });
+        new Vue({
+            el: '#app',
+            mounted() {
+                //获取某个子组件
+                //this.$refs 存放已经设置ref属性的子组件
+                console.log(this.$refs.myC.$el.style.background = 'red');
+            }
+        })
+    </script>
+</body>
+
+</html>

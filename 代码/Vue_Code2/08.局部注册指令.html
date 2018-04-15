@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box" v-my-drag.x.y="opts"></div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: 'hello',
+                opts: {
+                    top: 100,
+                    left: 0,
+                    cursorStyle: 'pointer'
+                }
+            },
+            //局部注册
+            directives: {
+                //key(指令名称):value(定义指令功能的钩子函数)
+                'myDrag': function(el, binding) {
+                    //console.log(binding.modifiers);
+                    //指令绑定元素时回调的函数
+                    //指令绑定到元素上是回调
+                    //1.设置元素定位
+                    el.style.position = 'absolute';
+                    //2.设置鼠标的按下事件
+                    el.onmousedown = function(ev) {
+                        //计算鼠标相对元素的偏移位置
+                        //鼠标的位置-元素到页面的距离
+                        var disX = ev.pageX - el.offsetLeft;
+                        var disY = ev.pageY - el.offsetTop;
+
+                        //设置鼠标样式
+                        el.style.cursor = (binding.value && binding.value.cursorStyle) ? binding.value.cursorStyle : "";
+
+                        //设置鼠标移动事件
+                        document.onmousemove = function(ev) {
+                                //获取鼠标的位置
+                                var x = null,
+                                    y = null;
+
+                                //如果用户设置了left, x=ev.pageX-parseFloat(binding.value.left);
+                                if (binding.value && (binding.value.left !== undefined)) {
+                                    x = ev.pageX - parseFloat(binding.value.left);
+                                } else {
+                                    x = ev.pageX - disX;
+                                }
+
+                                //判断用户是否设置top
+                                if (binding.value && binding.value.top) {
+                                    y = ev.pageY - parseFloat(binding.value.top);
+                                } else {
+                                    y = ev.pageY - disY;
+                                }
+                                if (binding.modifiers.x) {
+                                    //如果用户设置了x修饰符，只修改left的值
+                                    el.style.left = x + 'px';
+                                } else if (binding.modifiers.y) {
+                                    //如果用户设置了y修饰符，只修改top值
+                                    el.style.top = y + 'px';
+                                } else {
+                                    //设置元素的位置
+                                    el.style.left = x + 'px';
+                                    el.style.top = y + 'px';
+                                }
+                            }
+                            //设置鼠标抬起事件
+                        document.onmouseup = function() {
+                            document.onmousemove = null;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

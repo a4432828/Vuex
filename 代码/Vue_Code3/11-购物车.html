@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--商品 -->
+        <ul>
+            <li v-for="(d,i) in products">
+                <strong>{{d.title}}</strong>
+                <br/>
+                <span>￥{{d.price}}</span>
+                <input type="button" value="加入购物车" @click="addShopCart(i)" />
+            </li>
+        </ul>
+        <hr/>
+        <!-- 购物车列表 -->
+        <ul>
+            <li v-for="(d,i) in shopCarts">
+                <input type="checkbox" v-model="d.isChoose" />
+                <strong>{{d.title}}</strong>
+                <span>￥{{d.price}}</span>
+                <input type="button" value='-' @click="subCount(i)" /><input v-model="d.count" /><input type="button" value="+" @click="addCount(i)" />
+                <strong>{{d.total}}</strong>
+            </li>
+
+        </ul>
+        <p>总价格：{{allTotal}}</p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                products: [{
+                    title: '牛肉干',
+                    price: '99.00',
+                    count: 1,
+                    isChoose: false
+                }, {
+                    title: '巧克力',
+                    price: '88.00',
+                    count: 1,
+                    isChoose: false
+                }],
+                shopCarts: [] //购物车商品列表
+            },
+            computed: {
+                allTotal() {
+                    var total = 0;
+                    this.shopCarts.forEach((val) => {
+                        if (val.isChoose) {
+                            total += val.price * val.count;
+                        }
+                    });
+
+                    return total;
+                }
+            },
+            methods: {
+                addShopCart(i) {
+                    var flag = true; //标识购物车是否有当前要添加的商品,true表示没有，false表示有
+                    this.shopCarts.forEach(function(val) {
+                        if (val.title == this.products[i].title) {
+                            //如果有，找到对应的数据，将数量+1
+                            val.count++;
+                            val.total = val.price * val.count;
+                            flag = false;
+                        }
+                    }, this);
+
+                    if (flag) {
+                        //如果没有就直接添加
+                        this.shopCarts.push(this.products[i]);
+                        var curPor = this.shopCarts[this.shopCarts.length - 1]; //取出最后一项
+                        curPor.total = curPor.price * curPor.count;
+                    }
+                },
+                addCount(i) {
+                    //加好按钮的点击事件
+                    //1.将当前的购物车数据的数量+1
+                    this.shopCarts[i].count++;
+
+                    //2.重新计算总价
+                    this.shopCarts[i].total = this.shopCarts[i].count * this.shopCarts[i].price;
+                },
+                subCount(i) {
+                    //减号按钮的点击事件
+                    //将当前购物车数据的数量-1
+                    this.shopCarts[i].count--;
+                    // //2.重新计算总价
+                    this.shopCarts[i].total = this.shopCarts[i].count * this.shopCarts[i].price;
+
+                    //如果当前数量变成0后，要将当前商品从购物车中删除
+                    if (this.shopCarts[i].count == 0) {
+                        this.shopCarts.splice(i, 1);
+                    }
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

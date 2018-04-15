@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" />
+        <!-- 计算属性的获取 -->
+        <p>{{newMsg}}</p>
+        <!-- 计算属性的设置 -->
+        <input type="text" v-model="newMsg" />
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                msg: 'zs'
+            },
+            computed: {
+                // newMsg: function() { //设置计算属性的getter方法
+                //     return 'hello' + this.msg;
+                // }
+                newMsg: {
+                    //定义获取函数
+                    get: function() {
+                        return 'hello' + this.msg;
+                    },
+                    //定义计算属性的设置函数
+                    set: function(newVal) {
+                        // console.log(newVal);
+                        this.msg = newVal.substring(5);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

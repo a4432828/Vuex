@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            padding: 20px;
+        }
+        
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 
+            指令的格式：
+                指令名称:指令参数.修饰符.修饰符
+         -->
+        <div class="box1" @click.capture="fn">
+            <!-- 
+            v-on:click  可以简化为@click
+                     .stop表示阻止事件冒泡
+                     .prevent 表示阻止默认事件
+             -->
+            <div class="box2" @click.capture="show">
+            </div>
+        </div>
+        <hr/>
+        <input type="text" @keyup.space.prevent="myKeyUp" />
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //给具体的按键码命名
+        Vue.config.keyCodes.enter = 13;
+
+        new Vue({
+            el: "#app",
+            data: {
+                msg: 'hello'
+            },
+            methods: {
+                show() {
+                    console.log('aaaaa');
+                },
+                fn() {
+                    console.log('bbb');
+                },
+                myKeyUp(ev) {
+                    console.log('key up...');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

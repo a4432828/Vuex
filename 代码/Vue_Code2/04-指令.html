@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <p>{{msg}}</p> -->
+        <!-- <p v-html="msg"></p> -->
+        <!-- 
+            v-cloak指令在vue解析完成后会被移除
+         -->
+        <p v-cloak>{{content}}</p>
+        <p v-text="content"></p>
+        <p v-html="content"></p>
+        <hr/>
+        <p><span v-pre>{{msg}}</span>的值是{{msg}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello",
+                content: '<h1>标题</h1><p>内容。。。</p>'
+            }
+        })
+    </script>
+</body>
+
+</html>

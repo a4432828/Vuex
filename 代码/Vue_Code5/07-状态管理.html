@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <shop-cart></shop-cart>
+        <p>总价:{{total}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script src="vuex.js"></script>
+    <script>
+        //创建容器对象
+        const store = new Vuex.Store({
+            state: {
+                count: 0,
+                price: 99
+            },
+            getters: {
+                //作用相当于组件的computed属性
+                //定义一些依赖与某个或某些原始数据(state)的新数据
+                //第一个参数为当前容器的state对象
+                total(state) {
+                    return state.count * state.price
+                }
+            },
+            mutations: {
+                setCount(state) {
+                    state.count++;
+                }
+            },
+            actions: {
+                //var store={commit:function()}
+                // var {a,b}={a:111,b:2222}
+                //var {commit}={commit:function(){}}
+                changeCount({ //解构赋值
+                    commit
+                }) {
+                    commit('setCount');
+                }
+            }
+
+        });
+        const shopCart = {
+            //商品列表组件
+            template: "<div><span>价格:<input :value='price'/></span>  <span>数量：<input :value='count'/><button @click='add'>+</button></span></div>",
+            // computed: {
+            //     price() {
+            //         return this.$store.state.price;
+            //     },
+            //     count() {
+            //         return this.$store.state.count;
+            //     }
+            // },
+            computed: Vuex.mapState(['count', 'price']),
+            // methods:Vuex.mapMutations(['setCount']),
+            methods: {
+                add() {
+                    //让容器里面的count++
+                    this.$store.dispatch('changeCount');
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            store,
+            components: {
+                shopCart
+            },
+            // computed: {
+            //     total() {
+            //         return this.$store.getters.total;
+            //     }
+            // }
+            computed: Vuex.mapGetters(['total'])
+        })
+    </script>
+</body>
+
+</html>

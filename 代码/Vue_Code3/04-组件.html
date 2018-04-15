@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <!-- <my-tr></my-tr> -->
+            <!-- 组件除了使用为自定义标签，还可以使用为某个元素的is属性 -->
+            <tr is="myTr"></tr>
+        </table>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //全局注册组件
+        Vue.component('myTr', {
+            template: "<tr><td>张三</td><td>20</td></tr>"
+        })
+
+        var vm = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

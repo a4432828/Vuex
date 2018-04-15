@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" />
+        <p @click='show' id="box">{{msg}}</p>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                msg: 'hello'
+            },
+            methods: {
+                show() {
+                    this.msg = 'lisi';
+                    this.$nextTick(function() {
+                        //视图更新完成后回调函数
+                        var oP = document.getElementById('box');
+                        console.log(oP.innerHTML);
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

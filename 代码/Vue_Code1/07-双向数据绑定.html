@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-bind:value="name" v-on:input="change" />
+        <p>{{name}}</p>
+
+    </div>
+
+
+    <script src="./vue.js"></script>
+    <script>
+        //MVVM:双向数据绑定，MVVM模式
+        // M--->Model  模型层(即数据层)
+        // V--->View   视图层
+        //VM--->VievModel 视图模型层
+        //Vue实现双向数据绑定的方法是通过Object.defineProperty实现
+        /*
+        Vue双向数据绑定的原理：
+            在内部会将data属性全部通过Object.defineProperty转化为getter和setter进行追踪
+            当对应的数据属性被修改后，内部自动调用setter,在对应setter方法中通知属性的监听者watcher,
+            在watcher中比较新修改的数据和以前数据是否有修改，如果有修改则触发虚拟DOM重新渲染
+            虚拟DOM的修改又会导致真实DOM的更新，从而实现数据（Model）层的修改导致视图（View）层的修改
+
+        */
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                name: 'hello'
+            },
+            methods: {
+                change(ev) {
+                    this.name = ev.target.value
+                }
+            },
+            watch: {
+                name: function(newVal, oldVal) {
+                    //收到广播者赋值的新值后，比较新值和旧值是否一样，
+                    //如果不一样，在这里修改对应的虚拟DOM
+                    //虚拟DOM触发对应的真实DOM的更新
+                }
+            }
+        });
+
+
+        Object.defineProperty(vm, 'name', {
+            get: function() {},
+            set: function(newVal) {
+                //设置广播者
+                //将新值广播给所遇的watcher
+            }
+        });
+
+        vm.name = 'zhangsan';
+    </script>
+</body>
+
+</html>

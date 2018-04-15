@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-input></my-input>
+        <p>{{myCount}}</p>
+    </div>
+
+    <script src="vue.js"></script>
+    <!-- 1.导入vuex库文件 -->
+    <script src="vuex.js"></script>
+    <script>
+        //const SETCOUNT = 'setCount';
+
+        //2.创建存储容器
+        const store = new Vuex.Store({
+            strict: true, //严格模式
+            //存储容器包含：state,mutations
+            state: {
+                //存放共享数据
+                count: 10
+            },
+            mutations: {
+                //修改状态的方法,每一个mutations方法的第一个参数都是当前容器对象中的state对象
+                //mutations必须是同步的
+                setCount(state, val) {
+                    // setTimeout(() => {
+                        state.count = val;
+                    //  }, 1000);
+                }
+            },
+            actions: {
+                timer: null,
+                //触发状态修改的行为方法
+                //actions可以定义复杂的逻辑
+                //每一个actions方法的第一个参数都是调用该行为的容器对象
+                changeCount(store, val) {
+                    clearTimeout(this.timer);
+                    this.timer = setTimeout(function() {
+                        //提交状态改变
+                        store.commit('setCount', val)
+                    }, 1000);
+                }
+            }
+        });
+
+        Vue.component('myInput', {
+            template: "<div><input @input='myFn'/></div>",
+            methods: {
+                myFn(ev) {
+                    // this.$store.state.count = ev.target.value;//不推荐直接修改state
+                    //通过mutations方法修改数据,所有的mutations方法必须都是通过容器对象调用commit方法进行调用的
+                    //第一个参数：要调用的mutations方法名称
+                    //第二个参数：传递给mutations方法的参数
+                    // this.$store.commit('setCount', ev.target.value);
+
+                    //通过actions修改数据
+                    //所有的actions方法必须都是通过容器对象调用dispatch方法进行调用的
+                    this.$store.dispatch('changeCount', ev.target.value);
+                }
+            }
+        })
+
+        new Vue({
+            el: "#app",
+            //3.将存储容器注入到Vue实例中
+            store, //store: store
+            computed: {
+                myCount() { //获取存储容器中的数据state，将state映射成当前组件或Vue实例中的计算属性
+                    console.log(this.$store.state.count);
+                    return this.$store.state.count;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

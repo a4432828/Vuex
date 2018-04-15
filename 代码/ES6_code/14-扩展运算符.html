@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        //函数的不定参数
+        function max(...val) {
+            console.log(val); //[10,20,30]
+        }
+        max(10, 20, 30);
+
+        var arr = [10, 40, -10, 80];
+        //扩展运算符
+        console.log(...arr);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li @click="myChange('home')">首页</li>
+            <li @click="myChange('product')">产品</li>
+        </ul>
+        <router-view></router-view>
+
+    </div>
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script>
+        const router = new VueRouter({
+            mode: 'history', //设置路由模式，两种:hash模式(默认)，history
+            routes: [{
+                    path: '/home',
+                    name: 'home',
+                    component: {
+                        template: "<div>首页。。。。</div>"
+                    }
+                }, {
+                    path: '/product',
+                    name: 'product',
+                    component: {
+                        template: "<div>产品。。。</div>"
+                    }
+                }
+
+            ]
+        })
+
+        new Vue({
+            el: "#app",
+            router,
+            methods: {
+                myChange(pathName) {
+                    //点击进行切换
+                    console.log(pathName);
+                    //    this.$router.push('/' + pathName); //相当 给元素添加了 to='"/"+pathName' 属性
+                    this.$router.push({
+                        name: pathName
+                    }); //相当 给元素添加了 :to='{name:'home'}' 属性
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

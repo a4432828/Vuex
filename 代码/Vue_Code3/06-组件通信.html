@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在子组件使用处通过自定义属性获取父组件的数据 -->
+        <my-tab v-bind:my-data="arr" my-title="头部导航">
+
+        </my-tab>
+        <my-tab :my-data="arr2">
+
+        </my-tab>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //组件内部的作用域是完全隔离，是获取不到组件外部的数据
+        //父组件的数据--->子组件  通过props传递
+        Vue.component('my-tab', {
+            template: `<div><h1>{{myTitle}}</h1>
+                        <ul><li v-for='d in myData' @click='show'>{{d}}</li></ul>
+                        </div>`,
+            //在子组件中可以通过props选项获取到组件使用时自定义的属性值
+            props: ['myData', 'myTitle'], //通过props接收外界自定义属性后，该属性名就可以在组件内部像变量使用
+            // props: {
+            //     myData: {
+            //         type: String,
+            //         required: true
+            //     }
+            // },
+            methods: {
+                show() {
+                    console.log(this.myData);
+                }
+            }
+        })
+
+        new Vue({
+            el: "#app",
+            data: {
+                arr: ['首页', '联系', '关于'],
+                arr2: ['衣服', '食品']
+            }
+        })
+    </script>
+</body>
+
+</html>

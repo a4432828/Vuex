@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <hr/>
+        <!-- <my-tr></my-tr> -->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'zhansagn'
+            },
+            //局部注册组件
+            components: {
+                //key(组件名称):value(组件选项)
+                'my-component': {
+                    template: "<div>局部注册的组件模版----{{msg}}/{{name}}-----<my-tr></my-tr></div>",
+                    data() {
+                        return {
+                            msg: 'hello'
+                        }
+                    },
+                    //局部注册组件
+                    components: {
+                        'myTr': {
+                            template: "<tr><td>1111</td></tr>"
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 自定义事件用于触发父组件的数据的修改 -->
+        <my-count v-on:my-add="change">
+
+        </my-count>
+        <p>{{total}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                total: 10
+            },
+            methods: {
+                change() {
+                    console.log('收到的子组件的消息:');
+                    this.total += 10;
+                }
+            },
+            components: {
+                'myCount': {
+                    template: "<div>{{count}}<input type='button' value='递增' @click='add'/></div>",
+                    data() {
+                        return {
+                            count: 1
+                        }
+                    },
+                    methods: {
+                        add() {
+                            this.count++;
+                            //触发自定义事件执行一次
+                            /*第一个参数：触发的自定义事件名称,第二个参数及其以后参数：传递给父组件的数据*/
+                            this.$emit('my-add'); //触发自定义的事件
+                        }
+                    }
+                }
+            }
+        });
+
+        //父组件传递数据给子组件时：通过props结合自定义属性实现
+        //子组件传递数据给父组件时：通过$emit触发自定义事件实现
+    </script>
+</body>
+
+</html>

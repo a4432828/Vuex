@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //创建Vue实例
+        var vm = new Vue({
+            // el: "#app",
+            template: "<div><input v-model='msg'/><br/><br/>{{newMsg}}</div>", //定义vue实例的模板
+            data: {
+                msg: 'hello'
+            },
+            methods: {
+                show() {}
+            },
+            computed: {
+                newMsg() {
+                    return this.msg + ',ZHANGSAN';
+                }
+            },
+            beforeCreate: function() {
+                //数据观测之前(或称为数据初始化之前)
+                console.log('beforeCreate,...' + this.msg + '/' + this.newMsg + '/' + this.show);
+            },
+            created() {
+                //设置数据的初始化
+                console.log('created.....' + this.msg + '/' + this.newMsg + '/' + this.show);
+            },
+            beforeMount() {
+                console.log('编译模版后，将虚拟DOM挂载前...beforeMount');
+                console.log(this.$el);
+            },
+            mounted() {
+                console.log('挂载后。。。mounted...');
+                console.log(this.$el);
+                this.$el.style.background = 'red';
+                //设置DOM初始化操作
+            },
+            beforeUpdate() {
+                //视图更新前
+                console.log('beforeUpdate.....');
+            },
+            updated() {
+                // 视图更新后
+                console.log('updated.....');
+            },
+            beforeDestroy() {
+                console.log(this.msg);
+            },
+            destroyed() {
+                console.log(this.msg);
+            }
+        });
+
+        vm.$mount('#app'); //替代vue实例中的el属性
+
+        // function Vue(obj) {
+        //     this = new Object();
+        //     //回调钩子beforeCreate
+        //     this.beforeCreate = obj.beforeCreate;
+        //     this.beforeCreate();
+        //     //数据观测
+        //     this.msg = obj.data.msg;
+        //     this.show = obj.methods.show;
+        //     this.newMsg = obj.computed.newMsg();
+        //     //数据观测之后
+        //     this.created();
+
+        // }
+
+        setTimeout(() => {
+            vm.$destroy();
+            vm.msg = 'lisi';
+        }, 3000);
+
+        /*
+            Vue实例的生命周期：
+            1)创建Vue实例
+            2)数据的观测，即将data,methods及computed定义的各个属性挂载到vue实例上
+            在数据观测前会调用beforeCreate钩子函数，在数据观测后会调用created钩子函数
+            3)获取模版，进行编译模版
+            4）挂载实例，即将编译后的DOM挂载真实DOM中
+            在挂载前会调用beforeMount钩子函数，在挂载后调用mounted钩子函数
+            
+            5)如果数据有更新，重新更新视图
+            视图更新前，会调用beforeUpdate钩子函数，在视图更新后调用updated钩子函数
+            6)如果使用者用该Vue实例调用了$destory()方法，则会销毁Vue实例
+             销毁前调用beforeDestory钩子函数，销毁后调用destoryed钩子函数
+        */
+    </script>
+</body>
+
+</html>

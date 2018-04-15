@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用指令: v-指令名称 -->
+        <div v-my-directive:click.stop="'zhangsan'+'hello'">
+            <input type="text" v-model="msg" />
+            <p>{{msg}}</p>
+        </div>
+
+    </div>
+    <!-- DOM操作用指令封装 -->
+    <script src="vue.js"></script>
+    <script>
+        //全局注册指令
+        // 第一个参数：自定义指令名称,可以 my-directive、myDirective, MyDirective命名，但是在使用时必须都使用为第一种名称
+        //第二个参数：定义指令的钩子函数(hook)
+        Vue.directive('my-directive', {
+            bind: function(el, binding) {
+                //第一个参数el:表示当前指令所在的DOM元素对象
+                //第二个参数binding:一个对象，包含指令名称、指令值、指令表达式,指令的参数，指令的修饰符
+
+                //在指令绑定到所在元素时回调，只回调一次，一般设置初始化操作
+                console.log('指令被绑定到了所在元素。。。。bind...');
+                console.log(el);
+                console.log(binding);
+            },
+            inserted: function() {
+                console.log('指令所在元素被插入到了父节点。。。。inserted...')
+            },
+            update: function() {
+                console.log('指令所在元素内部有数据更新时调用。。。。update...')
+            }
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: 'hello'
+            }
+        });
+    </script>
+</body>
+
+</html>

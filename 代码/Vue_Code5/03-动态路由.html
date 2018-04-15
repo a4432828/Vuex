@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/jx">精选</router-link>
+            <router-link to="/jx/phone">手机</router-link>
+            <router-link to="/jx/dq">电器</router-link>
+        </p>
+        <!-- 2.指定路由入口 -->
+        <router-view></router-view>
+    </div>
+
+    <script src="vue.js"></script>
+    <!-- 1.引入vue-router -->
+    <script src="vue-router.js"></script>
+    <script src="./axios.min.js"></script>
+
+    <script>
+        //3.创建路由对象
+        const router = new VueRouter({
+            routes: [{
+                path: "/jx",
+                component: {
+                    template: "<div><h1>精选</h1><p>精选。。。。。</p></div>"
+                }
+            }, {
+                path: '/jx/:myPath', //（:变量名）称之为路由参数
+                component: {
+                    template: '<div><h3>{{title}}</h3><p>{{content}}</p></div>',
+                    data() {
+                        return {
+                            title: "",
+                            content: ''
+                        }
+                    },
+                    created() {
+                        console.log('路由匹配了。。');
+                        console.log(this);
+                        console.log(this.$route)
+                        console.log(this.$route.params.myPath);
+                        //请求后台数据
+                        axios.get('data/' + this.$route.params.myPath + '.json')
+                            .then((res) => {
+                                // console.log(this);
+                                // console.log(res.data);
+                                this.title = res.data.title;
+                                this.content = res.data.content;
+                            });
+                    },
+                    // updated() {
+                    //     axios.get('data/' + this.$route.params.myPath + '.json')
+                    //         .then((res) => {
+                    //             this.title = res.data.title;
+                    //             this.content = res.data.content;
+                    //         });
+                    // }
+                    watch: {
+                        //观察$route对象的变化，在路由变化后请求后台数据
+                        $route: function(newVal, oldVal) {
+                            console.log(newVal.params);
+                            axios.get('data/' + newVal.params.myPath + '.json')
+                                .then((res) => {
+                                    this.title = res.data.title;
+                                    this.content = res.data.content;
+                                });
+                        }
+                    }
+                }
+            }]
+        })
+
+        new Vue({
+            el: "#app",
+            //4.将路由对象注入到Vue实例上
+            router
+        })
+    </script>
+</body>
+
+</html>

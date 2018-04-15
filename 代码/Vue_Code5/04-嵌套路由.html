@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link :to="{name:'home'}">首页</router-link>
+            <router-link :to="{name:'product'}">产品</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script>
+        const router = new VueRouter({
+            routes: [{
+                path: '/home',
+                component: {
+                    template: '<div>主页。。。。。</div>'
+                },
+                name: "home"
+            }, {
+                path: "/product",
+                name: "product",
+                component: {
+                    template: `<div><h2>产品页面。。。</h2>
+                                <p><router-link :to='{name:"clothes"}'>衣服</router-link>
+                                    <router-link :to='{name:"phone"}'>手机</router-link>
+                                    </p>
+                                    <router-view></router-view>
+                            </div>`
+                },
+                children: [ //子路由
+                    {
+                        path: "clothes", //路径直接设置子路径，不能添加'/'
+                        component: {
+                            template: "<div><h4>衣服</h4></div>"
+                        },
+                        name: 'clothes'
+                            //,
+                            // children:[   //进一步嵌套路由
+                            //     {
+
+                        //     }
+                        // ]
+                    }, {
+                        path: "phone",
+                        component: {
+                            template: "<div><h4>手机</h4></div>"
+                        },
+                        name: 'phone'
+                    }
+                ]
+
+            }]
+        });
+        new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>

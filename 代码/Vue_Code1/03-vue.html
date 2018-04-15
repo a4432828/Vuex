@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+    <div id="box">
+        {{name}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //1.创建Vue实例
+        new Vue({
+            el: "#app", //不能挂载在html和body
+            data: {
+                msg: 'hello'
+            }
+        });
+        //可以创建多个Vue实例
+        new Vue({
+            el: "#box",
+            data: {
+                name: 'zhagnans'
+            }
+        })
+    </script>
+</body>
+
+</html>

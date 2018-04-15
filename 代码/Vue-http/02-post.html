@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="vue.js"></script>
+    <script src="./vue-resource@1.3.4.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                pwd: ''
+            },
+            created() {
+                //POST请求后台
+                // this.$http({
+                //     method: 'POST',
+                //     //通过url拼接设置参数
+                //     url: '01-http.php',
+                //     // body: { //通过params选项设置url参数
+                //     //     username: 'zs',
+                //     //     password: '22345667'
+                //     // },
+                //     body: 'username=zs&password=12345',
+                //     headers: {
+                //         //post请求要指定发送的内容类型
+                //         'content-type': 'application/x-www-form-urlencoded '
+                //     }
+
+                // }).then(function(res) {
+                //     console.log(res);
+                // });
+
+                //GET请求的简写
+                //第一个参数：请求路径，第二个参数：请求参数，第二个参数：请求的配置选项
+                this.$http.post('01-http.php', 'username=lisi&password=134566', {
+                        //设置请求选项
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded '
+                        }
+                    })
+                    .then(function(res) {
+                        console.log(res);
+                    });
+
+            }
+        })
+    </script>
+</body>
+
+</html>

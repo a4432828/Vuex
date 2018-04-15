@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        省份：
+        <select @change="changeCitys">
+            <option v-for="d in provinces">
+                {{d}}
+            </option>
+        </select>
+        <br/> 城市： <select>
+                <option v-for="d in citys">{{d}}</option>
+            </select>
+
+    </div>
+    <script src="vue.js"></script>
+    <script src="jquery-1.11.1.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                allData: [], //后台所有数据
+                provinces: [], //省份数据
+                citys: [] //城市数据
+            },
+            methods: {
+                changeCitys(ev) {
+                    this.citys.length = 0; //清空数组
+                    //修改城市数据
+                    console.log(ev.target.value);
+                    this.allData.forEach(function(val, i) {
+                        if (val.name == ev.target.value) {
+                            //将当前val的city数据设置this.citys上
+                            val.city.forEach(function(val, i) {
+                                this.citys.push(val.name); //重新设置城市
+                            }, this);
+                        }
+                    }, this);
+                }
+            },
+            //created 钩子函数
+            created() {
+                console.log('vue实例创建完成。。。');
+                //请求数据，初始化数据操作
+                $.get('citys.json').then((res) => {
+                    //成功回调函数
+                    console.log(res);
+                    this.allData = res;
+
+                    //遍历所有数据，取出省份
+                    res.forEach(function(val, i) {
+                        //this--->vue实例
+                        this.provinces.push(val.name);
+                    }, this);
+
+                    //设置默认的城市数据，遍历 res[0].city
+                    res[0].city.forEach(function(val, i) {
+                        this.citys.push(val.name);
+                    }, this);
+
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

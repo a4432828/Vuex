@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        var name = 'zhangsan';
+        var obj = {
+            name: name, //key的名称和value的变量名称一致时，可以省略
+            show: function() {
+                console.log(this.name);
+            }
+        }
+
+        //对象简写为：
+        var obj = {
+            name, //等效于 name:name
+            show() { //对象的函数简写
+                console.log(this.name);
+            }
+        }
+    </script>
+</body>
+
+</html>

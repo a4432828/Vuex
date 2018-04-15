@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--
+            v-bind指令：将指定的变量绑定到所在的属性上
+        -->
+        <a v-bind:href="mHref">百度</a>
+        <!-- {{}} 插值表达式 -->
+        <!-- <p>{{mHref}}</p> -->
+
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                mHref: 'http://www.baidu.com'
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //声明类
+        class Person {
+            //声明构造函数，如果不显示声明，默认具有空的构造函数
+            constructor(name, age) { //显示声明构造函数
+                this.name = name;
+                this.age = age;
+            }
+            show() {
+                console.log('11111');
+            }
+        }
+
+        console.log(Person.prototype);
+        //创建对象
+        var p1 = new Person('zs', 10); //调用构造函数
+        p1.sex; //沿着原型链查找
+    </script>
+</body>
+
+</html>

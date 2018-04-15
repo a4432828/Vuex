@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <home></home>
+        <hr/>
+        <about></about>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //混合对象实现组件选项的混合，从而避免共有的的选项重复定义
+        //将共有的功能定义在混合对象中
+        var mixinsObj = {
+            data() {
+                return {
+                    name: 'hello'
+                }
+            },
+            methods: {
+                show() {
+                    console.log(this.name)
+                }
+            },
+            mounted() {
+                console.log('aaa')
+            }
+        }
+
+
+        Vue.component('home', {
+            template: "<div @click='show'>home---{{name}}</div>",
+            //将已经定义好的混合对象混合到当前组件中
+            data() {
+                return {
+                    msg: 'zhangsan',
+                    name: "lisi"
+                }
+            },
+            methods: {
+                show() {
+                    console.log('this home show function....');
+                }
+            },
+            mounted() {
+                console.log('this is home...');
+            },
+            mixins: [mixinsObj]
+        });
+        Vue.component('about', {
+            template: "<div>about---<p @click='show'>{{name}}</p></div>",
+            mixins: [mixinsObj]
+        });
+
+        new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            transition: 1s all;
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            height: 0;
+            width: 0;
+        }
+        
+        .v-enter-to,
+        .v-leave {
+            height: 100px;
+            width: 100px;
+        }
+        
+        .slide-enter,
+        .slide-leave-to {
+            height: 0;
+        }
+        
+        .slide-enter-to,
+        .slide-leave {
+            height: 100px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" v-model="flag">
+        <transition>
+            <div class="box" v-show="flag"></div>
+        </transition>
+        <hr/>
+        <input type="checkbox" v-model="flag1">
+        <transition name="slide">
+            <div class="box" v-show="flag1"></div>
+        </transition>
+        <!-- 
+            可以通过css设置动画
+                Vue给隐藏和显示的元素设置如下类：
+                   即将显示会添加 .v-enter类 (默认,如果给tansition元素设置name属性，则添加的类名为：.[name]-enter)   
+                   显示完成会添加 .v-enter-to类
+                   即将隐藏会添加 .v-leave类
+                   隐藏完成会添加 .v-leave-to类
+        -->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                flag: true,
+                flag1: true
+            }
+        })
+    </script>
+</body>
+
+</html>

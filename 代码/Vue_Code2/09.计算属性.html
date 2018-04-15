@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" />
+        <p>{{msg}}</p>
+        <p>{{newMsg()}}</p>
+        <p>{{newMsg()}}</p>
+        <hr/>
+        <!-- 使用计算属性 -->
+        <p>{{myMsg}}</p>
+        <p>{{myMsg}}</p>
+        <p>{{myMsg}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //创建Vue实例
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "lisi"
+            },
+            methods: {
+                newMsg() {
+                    console.log('aaaa')
+                    return 'hello,' + this.msg;
+                }
+            },
+            //当某一个新数据，是一个或一些已定义数据(data属性定义的数据)经过一定处理(同步处理)后得到的结果，这种数据可以用计算属性定义
+            computed: { //计算属性所定义的所有属性都会被Vue实例代理
+                myMsg: function() { //每一个计算属性都必须要定义为方法
+                    //计算属性的函数内，必须要有返回值，返回的结果就是已有数据处理后的结果
+                    console.log('bbbbb');
+                    return 'hello,world,' + this.msg;
+                }
+            }
+            //计算属性会对原始数据进行缓存, 只有当原始数据发生变化时计算属性的方法才会重新调用
+            //计算属性中不能有异步操作,如果新数据是需要经过异步处理后得到的结果应该使用watch设置
+            //computed计算属性本质上是依赖于watch
+        });
+        console.log(vm);
+    </script>
+</body>
+
+</html>

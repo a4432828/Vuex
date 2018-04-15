@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var imgs = [
+            'http://b.hiphotos.baidu.com/image/h%3D300/sign=6e4abdc4771ed21b66c928e59d6fddae/b21bb051f8198618dfa4c3b240ed2e738bd4e621.jpg',
+            'http://b.hiphotos.baidu.com/image/h%3D300/sign=a2c12fb6580fd9f9bf175369152cd42b/9a504fc2d5628535ace4d2eb99ef76c6a6ef63f7.jpg'
+        ];
+
+        function loadImg(url) {
+            return new Promise(function(resolve, reject) {
+                var img = new Image();
+                img.onload = function() {
+                    //图片加载成功
+                    resolve(img);
+                }
+                img.onerror = function(err) {
+                    reject(err);
+                }
+                img.src = url;
+            });
+        }
+
+        Promise.all([loadImg(imgs[0]), loadImg(imgs[1])]).then(function(res) {
+            console.log(res);
+            document.body.appendChild(res[0]);
+            document.body.appendChild(res[1]);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    </script>
+</body>
+
+</html>

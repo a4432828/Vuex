@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <!-- 
+            v-on 指令：用于绑定元素事件,当对应事件触发时所赋值的表达式会被执行一次
+            $event表示当前的事件对象
+         -->
+        <input type="button" value="按钮" v-on:click="show" />
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //1.创建Vue实例
+        var vm = new Vue({
+            el: "#app", //不能挂载在html和body
+            data: { //定义数据
+                msg: 'hello',
+            },
+            methods: { //定义方法,所有定义的方法都会被vue实例代理
+                show: function(ev) {
+                    console.log('aaa')
+                    console.log(this.msg); //methods定义的函数内的this指向是当前vue实例
+                    console.log(ev); //当前事件的event对象
+                }
+            }
+        });
+        console.log(vm);
+    </script>
+</body>
+
+</html>

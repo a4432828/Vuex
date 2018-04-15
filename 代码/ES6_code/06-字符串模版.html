@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			var oDiv=document.getElementById("box");
+			
+			var name='javascript';
+			//字符串模版
+			//反引号：`(~)在英文输入法下输入
+			//变量获取：${变量名}
+			var a=`<h1>Hello,world</h1>
+					<ul>
+						<li><p>aaaa</p></li>
+						<li><p>${name}</p></li>
+					</ul>`;
+					
+			oDiv.innerHTML=a;
+			
+			console.log(a);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <strong @click="currentView='home'">首页</strong> &nbsp;&nbsp;
+            <strong @click="currentView='about'">关于</strong>
+        </p>
+        <!-- keep-alive 将切换出去的组件进行缓存 -->
+        <keep-alive>
+            <div :is="currentView"></div>
+        </keep-alive>
+
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        //home组件选项
+        const home = {
+            template: '<div><h1>首页</h1><p>首页内容。。。</p><input text=""/></div>',
+            created() {
+                console.log('home被创建了。。。')
+            },
+            destroyed() {
+                console.log("home被销毁了")
+            },
+            activated() {
+                console.log('keep-alive 组件激活时调用');
+            }
+        };
+        //about组件选项
+        const about = {
+            template: '<div><h2>关于</h2><p>关于内容。。。</p><input text=""/></div>',
+            created() {
+                console.log('about被创建了。。。')
+            },
+            destroyed() {
+                console.log("about被销毁了")
+            }
+        }
+        new Vue({
+            el: "#app",
+            data: {
+                currentView: 'home'
+            },
+            components: {
+                home, //等效于home:home
+                about
+            }
+        })
+    </script>
+</body>
+
+</html>

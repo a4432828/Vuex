@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- {{表达式}} 得到里面表达式的结果 -->
+        <p>{{msg+',world'}}</p>
+        <p>{{name}}</p>
+    </div>
+
+    <p>{{msg}}</p>
+
+    <!-- 引入vue.js -->
+    <script src="./vue.js"></script>
+    <script>
+        //创建Vue实例
+        var vm = new Vue({
+            el: "#app", //指定vue实例要挂载的视图,该属性的值为元素选择器，该选择器选中的元素要是唯一的
+            data: { //定义数据
+                msg: 'hello' //data上所定义的所有属性都会被vm代理
+            }
+        });
+        /////////////////////////////////////////
+        console.log(vm);
+        vm.msg = 'zhangsan'; //修改vm上数据属性会影响到视图
+        setTimeout(() => { //vm.$data访问data属性
+            vm.$data.msg = 'lisi';
+        }, 1000);
+        //////////////////////////////////////////
+        vm.name = 'wanger'; //不要在vue实例后再定义任何属性
+    </script>
+</body>
+
+</html>

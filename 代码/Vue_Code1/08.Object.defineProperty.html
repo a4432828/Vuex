@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="vue.js"></script>
+    <script>
+        //ES5方法
+        var obj = {};
+        //观察对象的属性的修改和设置
+        // 第一个参数：指定要观察的对象
+        //第二个参数：指定要监听的对象的属性
+        Object.defineProperty(obj, 'name', {
+            myname: '',
+            get: function() {
+                console.log('当前属性被获取了。。。。');
+                return this.myname;
+            },
+            set: function(newVal) {
+                this.myname = newVal;
+                console.log('当前属性被设置了。。。。' + newVal);
+            }
+        });
+
+        obj.name = 'hello';
+        console.log(obj.name);
+    </script>
+</body>
+
+</html>

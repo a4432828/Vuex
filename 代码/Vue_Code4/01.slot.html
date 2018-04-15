@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Vue生命周期：
+    obj={};
+    console.log(obj.msg);//undefined -->
+
+    <div id="app">
+        <my-tab>
+            <h3>组件外部的标题</h3>
+            <section>组件外部的内容。。。。</section>
+        </my-tab>
+    </div>
+
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('myTab', {
+            //<slot></slot> 将组件使用时已设置的结构进行保留
+            template: "<div><h1>组件内部标题</h1><slot></slot><p>组件内部的段落</p></div>"
+        })
+
+        new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>

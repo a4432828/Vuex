@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 200px;
+            height: 100px;
+            background: red;
+        }
+        
+        .box2 {
+            width: 200px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" v-model="flag" />
+        <p>{{flag}}</p>
+        <!-- 
+            v-if:通过DOM操作(DOM创建和删除)来实现元素的显示和隐藏
+            v-show:通过样式设置(display:none)来实现元素的显示和隐藏
+
+            v-if/v-else 按条件渲染,如果所切换的元素里面有共同的结构，vue默认进行复用
+            如果某些元素不希望被复用，则给不需要复用的元素设置唯一的key属性
+
+            v-if
+            v-else-if
+            v-else-if
+            ....
+            v-else
+         -->
+        <div class="box1" v-if="flag">
+            <input type="text" class="aa" />
+            <input type="email" key="a" />
+        </div>
+        <div class="box2" v-else>
+            <input type="text" class="bb" />
+            <input type="email" key="b" />
+        </div>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                flag: ''
+            }
+        });
+    </script>
+</body>
+
+</html>

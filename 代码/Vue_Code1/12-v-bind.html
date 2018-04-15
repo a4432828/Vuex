@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            background: red
+        }
+        
+        .green {
+            background: green
+        }
+        
+        .size {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .border {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind作用是将元素属性(包括内置属性以及自定义属性)值绑定指定变量 
+            v-bind:src 可以简写为 :src
+            
+            
+        -->
+        <img :src="mSrc" :alt="title">
+        <ul>
+            <!-- v-bind:class 可以和class属性共存
+                v-bind:class 可以绑定变量
+                v-bind:class 可以绑定对象{类名:boolean(true给类被添加，false该类不被添加)}
+                v-bind:class 可以绑定数组
+             -->
+            <li v-for="(d,index) in arr" :class="'border'" class="size">{{d}}</li>
+        </ul>
+        <hr/>
+        <ul>
+            <li v-for="(d,index) in arr" :class="{red:index%2==0,green:index%2!=0}">{{d}}</li>
+        </ul>
+        <hr/>
+        <ul>
+            <li v-for="(d,index) in arr" :class="['size','border',{red:index%2==0}]">{{d}}</li>
+        </ul>
+        <hr/>
+        <p :style="myStyle">1111</p>
+        <p :style="myStyle2">2222</p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                mSrc: './img/phones/dell-venue.3.jpg',
+                title: '手机',
+                arr: ['11111', '22222', '33333'],
+                cls: 'border',
+                myStyle: 'width:100px;height:100px;background:red;',
+                myStyle2: {
+                    width: '100px',
+                    height: '100px',
+                    background: 'green'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

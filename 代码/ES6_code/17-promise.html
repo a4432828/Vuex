@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Promise:用于替代回调函数的异步解决方案
+        //Promise对象是容器，用于存放异步操作
+        //当Promise对象创建出来后，异步操作就开始执行了
+        // 异步操作由进行中状态pending ---> 完成状态(resolve)
+        // 异步操作由进行中状态pending ---> 拒绝状态(reject)
+
+        function ajax(type, url, param) {
+            return new Promise(function(resolve, reject) {
+                //存放异步操作
+                //1.创建请求对象
+                var xhr = new XMLHttpRequest();
+                //2.打开请求连接，设置请求参数
+                if (type.toUpperCase() == 'GET' && param) {
+                    url += "?" + param;
+                }
+
+                xhr.open(type, url, true); //true 异步请求
+
+                //3.发送请求
+                if (type.toUpperCase() == 'GET') {
+                    xhr.send();
+                } else {
+                    xhr.setRequestHeader('XXX'); //修改请求头信息
+                    xhr.send(param);
+                }
+                //4.监听服务器返回的结果
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            //服务器返回结果
+                            resolve(xhr.responseText); //进行状态--->完成状态
+                        } else {
+                            reject(xhr.status); //进行状态--->拒绝状态
+                        }
+                    }
+                }
+            })
+
+        }
+
+        var promise = ajax('get', '01-let.html', '');
+        // promise.then(function(res) {
+        //     //成功调用的函数
+        //     console.log(res);
+        // }, function(err) {
+        //     //失败调用的函数
+        // })
+        // promise.then(function(res) {
+        //     //成功回调
+        // }).catch(function(err) {
+        //     //失败回调
+        // }).finally(function() {
+        //     //不管成功或失败都会回调的函数
+        // });
+
+        Promise.all([p1, p2, p3]).then(function(res) {
+            //三个异步操作都成功后回调的函数  
+            //三个异步操作得到的结果会依次存储在该函数的参数数组中
+        }).catch(function(err) {
+            //只有有一个失败就会回调该函数
+        });
+    </script>
+
+</body>
+
+</html>

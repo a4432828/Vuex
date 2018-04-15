@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            show() {
+                console.log('aaa');
+            }
+        }
+        //继承父类，extends Person实现原型链继承
+        class Student extends Person {
+            constructor(name, age, sex) {
+                super(name, age); //构造函数继承，调用父类的构造函数的语句必须放在构造函数的第一行
+                this.sex = sex;
+            }
+            fn() {
+                console.log('bbbb');
+                //在子类的普通方法中调用父类的任何普通方法
+                super.show(); //super代表父类的对象
+            }
+        }
+
+        var stu1 = new Student('zs', 29, 'male');
+        stu1.show();
+        stu1.fn();
+    </script>
+</body>
+
+</html>

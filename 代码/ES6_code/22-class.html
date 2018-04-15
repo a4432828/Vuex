@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //声明构造函数，即声明类
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.show = function() {
+            alert(this.name + '/' + this.age);
+        }
+
+        function Student(name, age, sex) {
+            //继承父类的构造函数
+            Person.call(this, name, age);
+        }
+        //$.extend(true,Student.prototype,Person.prototype);//将Person.prototype对象深拷贝到Student.prototype上
+
+        Object.create = function(proto) {
+            var F = function() {} //空的构造函数，代替父类构造函数
+            F.prototype = proto;
+            var f = new F(); //f.__proto__==F.prototype==proto
+            return f; //Student.prototype.__proto__==Person.prototype
+        }
+
+        //形成原型链：
+        //  stu.__proto__==Student.prototype
+        //  Student.prototype.__proto__==Person.prototype
+        //  Person.prototype.__proto__==Object.prototype
+        //  Object.prototype.__proto__==null;
+
+        //  Student.prototype = new Person();
+        Student.prototype = Object.create(Person.prototype);
+
+        var stu = new Student('zs', 10, 'male');
+        stu.show();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        v-on
+        v-for
+        v-if/else
+        v-bind
+        v-model
+    
+        双向数据绑定：
+     -->
+    <div id="app">
+        <!-- 
+            v-model是 下面语句的语法糖
+            v-bind:value="name"  v-on:input="event=>{name=ev.target.value}"
+         -->
+        <!-- <input type="text" v-model="name" /> -->
+        <!-- <input type="text" :value="name" @input="event=>{name=event.target.value}" /> -->
+
+        <input type="text" v-model.number="name" />
+
+        <p>{{name}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                name: 'hello'
+            }
+        });
+    </script>
+</body>
+
+</html>

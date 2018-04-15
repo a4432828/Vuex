@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            请提问：
+            <input type="text" v-model="ques" />
+        </p>
+        <p>结果：
+            <strong>{{answer}}</strong>
+        </p>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                ques: '',
+                answer: '你还没任何问题',
+                timer: null //定义定时器id
+            },
+            watch: {
+                //正在输入时，answer='正在等待输入完成'
+                //输入停止：answer='正在思考'，
+                //1s后思考完成，answer='no'
+                ques: function(newVal, oldVal) {
+                    console.log(this);
+                    clearTimeout(this.timer);
+                    //1.正在输入时
+                    this.answer = '正在等待输入完成';
+                    this.timer = setTimeout(() => {
+                        //停止输入
+                        this.answer = '正在思考';
+                        //1s后思考完成
+                        setTimeout(() => {
+                            this.answer = 'NO'
+                        }, 1000);
+                    }, 500);
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

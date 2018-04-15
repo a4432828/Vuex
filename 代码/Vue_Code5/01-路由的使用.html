@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        .router-link-exact-active {
+            background: red;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <!-- <a href="#/jingxuan">精选</a>
+            <a href="#/phone">手机</a>
+            <a href="">家居</a> -->
+            <router-link to="/jingxuan">精选</router-link>
+            <router-link to="/phone">手机</router-link>
+        </p>
+        <!-- 2.指定视图容器,即路由入口 -->
+        <router-view></router-view>
+    </div>
+
+    <script src="vue.js"></script>
+    <!-- 1.引入Vue-Router插件 -->
+    <script src="vue-router.js"></script>
+    <script>
+        //3.创建路由对象，配置路由
+        const router = new VueRouter({
+            routes: [ //配置路由
+                {
+                    //       name: 'jx', //给路由命名
+                    path: '/jingxuan', //指定当前要匹配的路径
+                    component: {
+                        //定义当前路由在路由入口中加载的组件
+                        template: '<div><h1>精选</h1><p>精选......</p></div>'
+                            //   name: 'jingxuan', //给组件命名
+
+                    }
+                }, {
+                    path: "/phone",
+                    component: {
+                        template: '<div><h2>手机</h2><p>手机。。。。。</p></div>'
+                    }
+                }
+            ]
+        });
+
+
+        var vm = new Vue({
+            el: "#app",
+            //4.将创建的路由对象注入到Vue实例中
+            router, //等效于router: router  
+        });
+    </script>
+</body>
+
+</html>

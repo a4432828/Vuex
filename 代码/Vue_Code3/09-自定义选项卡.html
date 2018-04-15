@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrap input.active {
+            background: red;
+        }
+        
+        .wrap p {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--使用选项卡组件 -->
+        <my-tab :tab-content="tabContents"></my-tab>
+
+        <my-tab></my-tab>
+    </div>
+    <script src="vue.js"></script>
+
+    <script type="text/x-template" id="myTmpl">
+        <!-- 定义组件模版 -->
+        <div class="wrap">
+            <input type="button" :value="d.title" v-for="(d,i) in tabContent" :class='{active:i==curIndex}' @click='changeTab(i)'>
+            <p v-for="(d,i) in tabContent" v-show="i==curIndex">{{d.content}}</p>
+        </div>
+    </script>
+    <script>
+        //选项卡的组件选项对象
+        const myTab = {
+            template: '#myTmpl',
+            props: ['tabContent'],
+            data() {
+                return {
+                    curIndex: 0 //记录当前选中的按钮下标
+                }
+            },
+            methods: {
+                changeTab(i) {
+                    //将当前点击的按钮设置背景红色，其他的按钮背景还原
+                    this.curIndex = i;
+                }
+            }
+        };
+
+        new Vue({
+            el: '#app',
+            components: {
+                //key(组件名称):value(组件对象)
+                myTab //等效于：myTab:myTab
+            },
+            data: {
+                tabContents: [{
+                    title: '体育',
+                    content: "体育体育体育"
+                }, {
+                    title: '科技',
+                    content: '科技科技科技科技科技科技科技'
+                }]
+            }
+        })
+    </script>
+</body>
+
+</html>

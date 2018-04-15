@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <hr/>
+        <!-- template 不渲染到真实DOM中 -->
+        <template v-for='d in 3'>
+            <h2>我是h2标题</h2>
+            <p>我是段落内容</p>
+        </template>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //全局注册组件:
+        //第一个参数：组件名称，可以使用 kebab-case(短横线分隔命名)、camelCase (驼峰式命名) 或 PascalCase(单词首字母大写命名)
+        //          在 HTML 模板中使用组件时，请使用 kebab-case
+        //          在HTML模版中将组件使用为自定义元素时，不能是单标签
+        //          而在template模板中即三种名称都可以，单标签也支持
+        //第二个参数：定义组件功能的选项
+        Vue.component('myComponent', {
+            //组件的选项和Vue实例中的选项几乎一致，除了不定义el属性，必须要定义template或render函数
+            data: function() { //data必须是函数
+                return {
+                    name: "hello"
+                }
+            },
+            methods: {
+                show() {
+                    console.log(this);
+                    alert(this.name); //this代表当前组件对象
+                }
+            },
+            directives: {},
+            template: "<div><h1 @click='show'>标题</h1><p>段落。。..{{name}}</p></div>", //组件模版中必须要有父元素，但是template元素不能充当父元素
+        });
+
+
+        //创建Vue实例
+        var vm = new Vue({
+            el: "#app",
+            // template: "<div><my-component/></div>"
+            data: {
+                msg: 'hello'
+            }
+        })
+    </script>
+</body>
+
+</html>

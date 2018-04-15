@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .bg {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- v-for 对数组进行遍历,根据遍历的数组元素创建所在的元素
+            v-for="(d,i) of arr"或 v-for="(d,i) in arr" 第一个参数d指遍历到数组的元素，第二个参数是指所遍历到是数组下标
+                
+            -->
+            <li v-for="(d,index) of arr" v-bind:class="index==0?'bg':''" @click="show(index)">{{index+1}} :{{d}} </li>
+        </ul>
+        <!-- 
+           v-for可以遍历对象
+           v-for="(val,key) in obj"  第一个参数d指遍历到对象的属性值，第二个参数是指所遍历到是对象属性名
+        -->
+        <p>
+            <strong v-for="(val,key,index) in obj">{{index}}:{{key}}:{{val}}<br/></strong>
+        </p>
+        <!-- v-for 可以遍历正整数数字 -->
+        <ul>
+            <li v-for="num in 20">{{num}}</li>
+        </ul>
+
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                arr: ['aaa', 'bbbb', 'aaa', 'ccc'],
+                obj: {
+                    name: 'zshangans',
+                    age: 10,
+                    sex: 'female'
+                }
+            },
+            methods: {
+                show(i) {
+                    alert(i);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

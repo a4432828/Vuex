@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入animate.css -->
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="box animated slideInLeft"></div> -->
+    <div id="app">
+        <input type="checkbox" v-model="flag">
+        <transition enter-active-class="animated slideInLeft" leave-active-class='animated slideOutLeft'>
+            <div class="box" v-if='flag'></div>
+        </transition>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                flag: true
+            }
+        })
+    </script>
+</body>
+
+</html>

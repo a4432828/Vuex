@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //声明构造函数，即声明类
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.show = function() {
+            alert(this.name + '/' + this.age);
+        }
+///////////////////////////////////
+        Person.sex = 'male';
+
+        console.log(Person.prototype); //原型对象,默认会:__proto__,constructor
+
+        var p1 = new Person('zs', 20);
+        Object.prototype.sex = 'female';
+
+        console.log(p1.sex);
+        //每一个对象都有__proto__属性,该属性的值为创建该对象的构造函数的prototype对象
+        //p1.__proto__==Person.prototype
+        //Person.prototype.__proto__==Object.prototype
+        //Object.prototype.__proto__==null;
+
+        //Person.__proto__==Function.prototype
+        //Function.prototype.__proto__==Object.prototype
+        //Object.prototype.__proto__==null;
+    </script>
+</body>
+
+</html>

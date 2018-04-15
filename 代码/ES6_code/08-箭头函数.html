@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			var show=function(){
+//				console.log(this);
+//			}
+//			
+//			var arr=[];
+//			arr.show=show;
+//			arr.show();	//this-->arr
+//			
+//			arr.fn=function(){
+//				show();	//this--->window
+//			}
+//			arr.fn();	
+	/////////////////////////////////////////////////
+			/*
+			 箭头函数特点：
+			 	1)箭头函数中没有自身的this变量，箭头函数内的this指向该函数所在环境的上下文
+			 	
+			 * */
+	
+			var show=()=>console.log(this);			
+			var arr=[];
+//			arr.show=show;			
+//			arr.show();
+			
+			
+			arr.fn=function(){
+				setTimeout(()=>{
+					console.log(this);
+				},1000);
+			}
+			arr.fn();
+			
+		</script>
+	</body>
+</html>
